@@ -6,6 +6,7 @@ import Haspel from "./Haspel/Haspel";
 import Finish from "./Finish/Finish";
 import { Order } from "./Order/Order";
 import { useOrders } from "../../Hooks/useOrders";
+import User from "./Assemblie/User";
 
 function CoaxAssemblie() {
   const orders = useOrders();
@@ -19,6 +20,7 @@ function CoaxAssemblie() {
       <ConnectorB {...orders} />
       <Haspel {...orders} />
       <Finish />
+      <User />
     </>
   );
 }
