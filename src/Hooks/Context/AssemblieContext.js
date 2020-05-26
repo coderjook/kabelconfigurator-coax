@@ -57,6 +57,15 @@ export const Provider = (props) => {
     setSelectedAssemblie(updateAssemblie);
   };
 
+  const UpdateAssemblieHaspel = (ArtnrHaspel) => {
+    const updateAssemblie = {
+      ...assemblies,
+    };
+    updateAssemblie.artnr_haspel = ArtnrHaspel;
+    setAssemblies(updateAssemblie);
+    setSelectedAssemblie(updateAssemblie);
+  };
+
   // Make the context object:
   const assemblieContext = {
     assemblies,
@@ -66,6 +75,7 @@ export const Provider = (props) => {
     addNewAssemblie,
     UpdateAssemblieConnA,
     UpdateAssemblieConnB,
+    UpdateAssemblieHaspel,
   };
 
   // pass the value in provider and return

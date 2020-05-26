@@ -4,7 +4,7 @@ import Cable from "./Cable/Cable";
 import Connector from "./Connector/Connector";
 import ConnectorB from "./Connector/ConnectorB";
 import Haspel from "./Haspel/Haspel";
-import Finish from "./Finish/Finish";
+import Afwerking from "./Afwerking/Afwerking";
 import { Order } from "./Order/Order";
 import { useOrders } from "../../Hooks/useOrders";
 import User from "./Assemblie/User";
@@ -22,7 +22,7 @@ function CoaxAssemblie() {
         <Connector {...orders} />
         <ConnectorB {...orders} />
         <Haspel {...orders} />
-        <Finish />
+        <Afwerking />
         <User />
       </AssemblieContextProvider>
     </>
