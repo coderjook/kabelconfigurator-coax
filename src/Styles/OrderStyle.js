@@ -26,7 +26,7 @@ export const OrderContainer = styled.div`
       ? `
     &:hover {
       cursor: pointer;
-      background-color: #F58020;
+      background-color: #F6F8FA;
     }
   `
       : `
@@ -37,7 +37,7 @@ export const OrderContainer = styled.div`
 export const OrderItem = styled.div`
   padding: 10px 0px;
   display: grid;
-  grid-template-columns: 20px 150px 20px 60px;
+  grid-template-columns: 150px 40px 60px;
   justify-content: space-between;
 `;
 

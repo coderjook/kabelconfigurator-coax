@@ -9,28 +9,41 @@ import {
   DetailItem,
 } from "../../../Styles/OrderStyle";
 
-import { formatPrice } from "../../../Data/CableData";
-import { getPrice } from "../Cable/CableDialog";
 import AssemblieDetails from "../../CoaxAssemblie/Assemblie/AssemblieDetails";
 
-export function Order({
-  setOpenCableDialog,
-  orders,
-  setOrders,
-  setOpenConnector,
-}) {
-  const subtotal = orders.reduce((total, order) => {
-    return total + getPrice(order);
-  }, 0);
+export function Order({ orders, setOrders }) {
+  // const subtotal = orders.reduce((total, order) => {
+  //   return total + getPrice(order);
+  // }, 0);
 
-  const tax = subtotal * 0.07;
-  const total = subtotal + tax;
-
-  const deleteItem = (index) => {
-    const newOrders = [...orders];
-    newOrders.splice(index, 1);
-    setOrders(newOrders);
+  // const tax = subtotal * 0.21;
+  // const total = subtotal + tax;
+  let subPriceCable = null;
+  const getPriceCable = (order) => {
+    subPriceCable = order.cableLength * (order.inkoopprijs / order.prijsper);
+    return subPriceCable;
   };
+
+  let subPriceConnector = null;
+  const getPriceConnector = (order) => {
+    subPriceConnector = order.inkoopprijs / order.prijsper;
+    return subPriceConnector;
+  };
+
+  let subPriceHaspel = null;
+  const getPriceHaspel = (order) => {
+    subPriceHaspel = order.inkoopprijs / order.prijsper;
+    return subPriceHaspel;
+  };
+
+  let subPriceAfwerking = null;
+  const getPriceAfwerking = (order) => {
+    subPriceAfwerking = order.lengthTransKrimpkous * 0.25;
+    return subPriceAfwerking;
+  };
+
+  const subtotal =
+    subPriceAfwerking + subPriceHaspel + subPriceConnector + subPriceCable;
 
   return (
     <>
@@ -41,54 +54,73 @@ export function Order({
         ) : (
           <OrderContent>
             {" "}
-            <OrderContainer>Jouw assemblie:</OrderContainer> {""}
-            {orders.map((order, index) => (
-              <OrderContainer editable>
-                <OrderItem
-                  onClick={() => {
-                    setOpenCableDialog({ ...order, index });
-                  }}
-                >
-                  <div>{order.length}</div>
-                  <div>{order.typenummer}</div>
-                  <div
-                    style={{ cursor: "pointer" }}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      deleteItem(index);
-                    }}
-                  >
-                    X
-                  </div>
-                  <div> {formatPrice(getPrice(order))}</div>
-                </OrderItem>
+            <OrderContainer>Jouw assemblie:</OrderContainer>
+            {orders.map((order, index) =>
+              order.assemblieItem === "cable" ? (
+                <OrderContainer>
+                  <OrderItem>
+                    <div>{order.typenummer}</div>
+                    <div>{order.inkoopprijs}</div>
+                    <div>prijs: {getPriceCable(order)}</div>
+                  </OrderItem>
+                  <DetailItem>lengte kabel: {order.cableLength}</DetailItem>
+                  <DetailItem>subprice kabel: {subPriceCable}</DetailItem>
+                </OrderContainer>
+              ) : null
+            )}
+            {orders.map((order, index) =>
+              order.assemblieItem === "connector" ? (
+                <OrderContainer>
+                  <OrderItem>
+                    <div>{order.typenummer}</div>
+                    <div>{order.inkoopprijs}</div>
+                    <div>prijs: {getPriceConnector(order)}</div>
+                  </OrderItem>
+                  {order.installation && (
+                    <DetailItem>afwerking: {order.installation}</DetailItem>
+                  )}
 
-                {order.length ? (
-                  <DetailItem>lengte kabel: {order.length}</DetailItem>
-                ) : null}
-
-                {order.installation && (
-                  <DetailItem>afwerking: {order.installation}</DetailItem>
-                )}
-                {/* <div>tule: {order.tule}</div> */}
-                {order.tule ? <DetailItem>{order.tule}</DetailItem> : null}
-              </OrderContainer>
-            ))}
+                  {order.tule ? <DetailItem>{order.tule}</DetailItem> : null}
+                </OrderContainer>
+              ) : null
+            )}
+            {orders.map((order, index) =>
+              order.assemblieItem === "haspel" ? (
+                <OrderContainer>
+                  <OrderItem>
+                    <div>{order.typenummer}</div>
+                    <div>{order.inkoopprijs}</div>
+                    <div>prijs: {getPriceHaspel(order)}</div>
+                  </OrderItem>
+                </OrderContainer>
+              ) : null
+            )}
+            {orders.map((order, index) =>
+              order.assemblieItem === "afwerking" ? (
+                <OrderContainer>
+                  <OrderItem>
+                    <div>{order.transKrimpkous}</div>
+                    <div>{order.lengthTransKrimpkous}</div>
+                    <div>prijs: {getPriceAfwerking(order)}</div>
+                  </OrderItem>
+                </OrderContainer>
+              ) : null
+            )}
             <OrderContainer>
               <OrderItem>
-                <div />
                 <div>Sub-total</div>
-                <div>{formatPrice(subtotal)}</div>
+                <div>{subtotal}</div>
+                <div />
               </OrderItem>
               <OrderItem>
-                <div />
                 <div>Tax</div>
-                <div>{formatPrice(tax)}</div>
+                <div>formatPrice(tax)</div>
+                <div />
               </OrderItem>
               <OrderItem>
-                <div />
                 <div>Total</div>
-                <div>{formatPrice(total)}</div>
+                <div>formatPrice(total)</div>
+                <div />
               </OrderItem>
             </OrderContainer>
           </OrderContent>

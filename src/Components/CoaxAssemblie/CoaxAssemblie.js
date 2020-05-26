@@ -22,7 +22,7 @@ function CoaxAssemblie() {
         <Connector {...orders} />
         <ConnectorB {...orders} />
         <Haspel {...orders} />
-        <Afwerking />
+        <Afwerking {...orders} />
         <User />
       </AssemblieContextProvider>
     </>

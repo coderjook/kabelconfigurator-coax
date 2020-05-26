@@ -1,11 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { AssemblieContext } from "../../../Hooks/Context/AssemblieContext";
+import { ConfirmButton } from "../../../Styles/DialogStyle";
 
-function Afwerking() {
+function Afwerking({ orders, setOrders }) {
   const [transKrimpkous, setTransKrimpkous] = useState("geen");
+  const [lengthTransKrimpkous, setLengthTransKrimpkous] = useState(1);
+  const { UpdateAssemblieAfwerking } = useContext(AssemblieContext);
 
   const handleChange = (event) => {
     setTransKrimpkous(event.target.value);
   };
+
+  const handleChangeLength = (event) => {
+    setLengthTransKrimpkous(event.target.value);
+  };
+
+  const order = {
+    assemblieItem: "afwerking",
+    transKrimpkous: transKrimpkous,
+    lengthTransKrimpkous: lengthTransKrimpkous,
+  };
+
+  function addToOrder() {
+    setOrders([...orders, order]);
+    UpdateAssemblieAfwerking(transKrimpkous, lengthTransKrimpkous);
+  }
 
   return (
     <>
@@ -47,6 +66,21 @@ function Afwerking() {
         onChange={handleChange}
       />
       <label for="beideKanten">transparante krimpkous op beide kanten</label>
+      {transKrimpkous === "geen" ? (
+        <p>geen transparante krimpkous</p>
+      ) : (
+        <div>
+          Lengte transparante krimpkous cm
+          <input
+            type="text"
+            id="lengthTransKrimp"
+            name="lengthTransKrimp"
+            value={lengthTransKrimpkous}
+            onChange={handleChangeLength}
+          />
+        </div>
+      )}
+      <ConfirmButton onClick={addToOrder}>add to order</ConfirmButton>
     </>
   );
 }

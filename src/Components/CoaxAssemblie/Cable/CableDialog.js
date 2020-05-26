@@ -9,13 +9,9 @@ import {
   DialogBannerName,
   ConfirmButton,
 } from "../../../Styles/DialogStyle";
-import { formatPrice } from "../../../Data/CableData";
+import { formatPrice } from "../../../Utils/FormatPrice";
 import { CableLengthInput } from "./CableLengthInput";
 import { useLength } from "../../../Hooks/useLength";
-
-export function getPrice(order) {
-  return order.length * order.inkoopprijs;
-}
 
 function CableDialogContainer({
   openCableDialog,
@@ -25,7 +21,7 @@ function CableDialogContainer({
   setOrders,
   orders,
 }) {
-  const Cablelength = useLength(openCableDialog && openCableDialog.Cablelength);
+  const cableLength = useLength(openCableDialog && openCableDialog.cablelength);
   const { addNewAssemblie } = useContext(AssemblieContext);
 
   const isEditing = openCableDialog.index > -1;
@@ -35,8 +31,9 @@ function CableDialogContainer({
   }
 
   const order = {
+    assemblieItem: "cable",
     ...openCableDialog,
-    Cablelength: Cablelength.value,
+    cableLength: cableLength.value,
   };
 
   function editOrder() {
@@ -51,7 +48,7 @@ function CableDialogContainer({
     close();
     selectedCable(openCableDialog.typenummer);
     closeShowCableGrid();
-    addNewAssemblie(openCableDialog.typenummer, Cablelength.value);
+    addNewAssemblie(openCableDialog.typenummer, cableLength.value);
   }
 
   return (
@@ -64,17 +61,12 @@ function CableDialogContainer({
         </DialogBanner>
         <DialogContent>
           hier kom lengte
-          <CableLengthInput Cablelength={Cablelength} />
+          <CableLengthInput cableLength={cableLength} />
         </DialogContent>
         <DialogFooter>
           <ConfirmButton onClick={isEditing ? editOrder : addToOrder}>
-            {isEditing ? "wijzig kabel" : "selecteer de kabel"}{" "}
-            {formatPrice(getPrice(order))}
+            {isEditing ? "wijzig kabel" : "selecteer de kabel"}
           </ConfirmButton>
-          {/* <ConfirmButton onClick={() => addNewAssemblie(12345, 23874)}>
-            maak assemblie
-          </ConfirmButton> */}
-          {/* <ConfirmButton onClick={addToOrder}>selecteer de kabel</ConfirmButton> */}
         </DialogFooter>
       </Dialog>
     </>

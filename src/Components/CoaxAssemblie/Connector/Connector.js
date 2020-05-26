@@ -26,7 +26,7 @@ function Connector({ ...orders }) {
         {...orders}
         closeShowConnectorGrid={() => setShowConnectorGrid(false)}
         selectedConnector={(connectorName) => setConnectorHeader(connectorName)}
-        connector="A"
+        connector="connA"
       />
       {showConnectorGrid ? (
         <ConnectorGrid {...openConnectorDialog} {...orders} />

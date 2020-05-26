@@ -9,6 +9,7 @@ function Haspel({ ...orders }) {
   const [haspelHeader, setHaspelHeader] = useState();
   return (
     <>
+      <p>haspelgeschikt: {orders.haspelgeschikt}</p>
       {haspelHeader ? (
         <>
           {" "}

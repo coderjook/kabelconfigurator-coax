@@ -35,23 +35,23 @@ const IncrementButton = styled.div`
   }
 `;
 
-export function CableLengthInput({ Cablelength }) {
+export function CableLengthInput({ cableLength }) {
   return (
     <IncrementContainer>
       <div>Vul de gewenste lengte van de kabel in (meters)</div>
       <IncrementButton
         onClick={() => {
-          Cablelength.setValue(Cablelength.value - 1);
+          cableLength.setValue(cableLength.value - 1);
         }}
-        disabled={Cablelength.value === 1}
+        disabled={cableLength.value === 1}
       >
         {" "}
         -{" "}
       </IncrementButton>
-      <InputStyled {...Cablelength} />
+      <InputStyled {...cableLength} />
       <IncrementButton
         onClick={() => {
-          Cablelength.setValue(Cablelength.value + 1);
+          cableLength.setValue(cableLength.value + 1);
         }}
       >
         {" "}

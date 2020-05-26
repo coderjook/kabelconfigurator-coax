@@ -54,6 +54,7 @@ function ConnectorDialogContainer({
   console.log({ tuleOrder });
 
   const order = {
+    assemblieItem: "connector",
     ...openConnectorDialog,
     installation: installationRadio.value,
     tule: tuleOrder,
@@ -69,7 +70,7 @@ function ConnectorDialogContainer({
   function addToOrder() {
     setOrders([...orders, order]);
     selectedConnector(openConnectorDialog.typenummer);
-    if (connector === "A") {
+    if (connector === "connA") {
       UpdateAssemblieConnA(openConnectorDialog.typenummer, tuleOrder);
     } else {
       UpdateAssemblieConnB(openConnectorDialog.typenummer, tuleOrder);

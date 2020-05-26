@@ -35,33 +35,43 @@ export const Provider = (props) => {
     setSelectedAssemblie(newAssemblie);
   };
 
-  const UpdateAssemblieConnA = (ArtnrConnA, InstallConnA) => {
+  const UpdateAssemblieConnA = (artnrConnA, installConnA) => {
     const updateAssemblie = {
       ...assemblies,
     };
-    updateAssemblie.artnr_connector_a = ArtnrConnA;
-    updateAssemblie.artnr_afwerking_a = InstallConnA;
+    updateAssemblie.artnr_connector_a = artnrConnA;
+    updateAssemblie.artnr_afwerking_a = installConnA;
 
     setAssemblies(updateAssemblie);
     setSelectedAssemblie(updateAssemblie);
   };
 
-  const UpdateAssemblieConnB = (ArtnrConnB, InstallConnB) => {
+  const UpdateAssemblieConnB = (artnrConnB, installConnB) => {
     const updateAssemblie = {
       ...assemblies,
     };
-    updateAssemblie.artnr_connector_b = ArtnrConnB;
-    updateAssemblie.artnr_afwerking_b = InstallConnB;
+    updateAssemblie.artnr_connector_b = artnrConnB;
+    updateAssemblie.artnr_afwerking_b = installConnB;
 
     setAssemblies(updateAssemblie);
     setSelectedAssemblie(updateAssemblie);
   };
 
-  const UpdateAssemblieHaspel = (ArtnrHaspel) => {
+  const UpdateAssemblieHaspel = (artnrHaspel) => {
     const updateAssemblie = {
       ...assemblies,
     };
-    updateAssemblie.artnr_haspel = ArtnrHaspel;
+    updateAssemblie.artnr_haspel = artnrHaspel;
+    setAssemblies(updateAssemblie);
+    setSelectedAssemblie(updateAssemblie);
+  };
+
+  const UpdateAssemblieAfwerking = (lengthKrimp, transKrimp) => {
+    const updateAssemblie = {
+      ...assemblies,
+    };
+    updateAssemblie.trans_krimp = transKrimp;
+    updateAssemblie.lengte_trans_krimp = lengthKrimp;
     setAssemblies(updateAssemblie);
     setSelectedAssemblie(updateAssemblie);
   };
@@ -76,6 +86,7 @@ export const Provider = (props) => {
     UpdateAssemblieConnA,
     UpdateAssemblieConnB,
     UpdateAssemblieHaspel,
+    UpdateAssemblieAfwerking,
   };
 
   // pass the value in provider and return

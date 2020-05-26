@@ -29,6 +29,7 @@ function HaspelDialogContainer({
   }
 
   const order = {
+    assemblieItem: "haspel",
     ...openHaspelDialog,
   };
 
