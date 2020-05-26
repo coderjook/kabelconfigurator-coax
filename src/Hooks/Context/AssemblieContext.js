@@ -35,6 +35,28 @@ export const Provider = (props) => {
     setSelectedAssemblie(newAssemblie);
   };
 
+  const UpdateAssemblieConnA = (ArtnrConnA, InstallConnA) => {
+    const updateAssemblie = {
+      ...assemblies,
+    };
+    updateAssemblie.artnr_connector_a = ArtnrConnA;
+    updateAssemblie.artnr_afwerking_a = InstallConnA;
+
+    setAssemblies(updateAssemblie);
+    setSelectedAssemblie(updateAssemblie);
+  };
+
+  const UpdateAssemblieConnB = (ArtnrConnB, InstallConnB) => {
+    const updateAssemblie = {
+      ...assemblies,
+    };
+    updateAssemblie.artnr_connector_b = ArtnrConnB;
+    updateAssemblie.artnr_afwerking_b = InstallConnB;
+
+    setAssemblies(updateAssemblie);
+    setSelectedAssemblie(updateAssemblie);
+  };
+
   // Make the context object:
   const assemblieContext = {
     assemblies,
@@ -42,6 +64,8 @@ export const Provider = (props) => {
     selectedAssemblie,
     setSelectedAssemblie,
     addNewAssemblie,
+    UpdateAssemblieConnA,
+    UpdateAssemblieConnB,
   };
 
   // pass the value in provider and return

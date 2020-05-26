@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { AssemblieContext } from "../../../Hooks/Context/AssemblieContext";
+
 import styled from "styled-components";
 import {
   Dialog,
@@ -34,10 +36,14 @@ function ConnectorDialogContainer({
   setOpenConnectorDialog,
   setOrders,
   orders,
+  connector,
 }) {
   const installationRadio = useInstallation();
   const isEditing = openConnectorDialog.index > -1;
   const [tuleState, setTuleState] = useState();
+  const { UpdateAssemblieConnA, UpdateAssemblieConnB } = useContext(
+    AssemblieContext
+  );
 
   const tuleOrder = tuleState ? `${tuleState}` : null;
 
@@ -63,6 +69,11 @@ function ConnectorDialogContainer({
   function addToOrder() {
     setOrders([...orders, order]);
     selectedConnector(openConnectorDialog.typenummer);
+    if (connector === "A") {
+      UpdateAssemblieConnA(openConnectorDialog.typenummer, tuleOrder);
+    } else {
+      UpdateAssemblieConnB(openConnectorDialog.typenummer, tuleOrder);
+    }
     closeShowConnectorGrid();
     close();
   }
@@ -76,7 +87,7 @@ function ConnectorDialogContainer({
         </DialogBanner>
         <DialogContent>
           {/* {openConnector.tulegroep} */}
-
+          {connector}
           <h3> Kies de afwerking:</h3>
           <RadioInput
             type="radio"
