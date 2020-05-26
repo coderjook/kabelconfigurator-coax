@@ -11,7 +11,7 @@ import {
 
 import { formatPrice } from "../../../Data/CableData";
 import { getPrice } from "../Cable/CableDialog";
-import Assemblie from "../../CoaxAssemblie/Assemblie/Assemblie";
+import AssemblieDetails from "../../CoaxAssemblie/Assemblie/AssemblieDetails";
 
 export function Order({
   setOpenCableDialog,
@@ -35,7 +35,7 @@ export function Order({
   return (
     <>
       <OrderStyled>
-        <Assemblie />
+        <AssemblieDetails />
         {orders.length === 0 ? (
           <OrderContent>geen assemblie geconfigureerd</OrderContent>
         ) : (

@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AssemblieContext } from "../../../Hooks/Context/AssemblieContext";
 import {
   Dialog,
   DialogContent,
@@ -25,6 +26,7 @@ function CableDialogContainer({
   orders,
 }) {
   const Cablelength = useLength(openCableDialog && openCableDialog.Cablelength);
+  const { addNewAssemblie } = useContext(AssemblieContext);
 
   const isEditing = openCableDialog.index > -1;
 
@@ -49,6 +51,7 @@ function CableDialogContainer({
     close();
     selectedCable(openCableDialog.typenummer);
     closeShowCableGrid();
+    addNewAssemblie(openCableDialog.typenummer, Cablelength.value);
   }
 
   return (
@@ -68,6 +71,9 @@ function CableDialogContainer({
             {isEditing ? "wijzig kabel" : "selecteer de kabel"}{" "}
             {formatPrice(getPrice(order))}
           </ConfirmButton>
+          {/* <ConfirmButton onClick={() => addNewAssemblie(12345, 23874)}>
+            maak assemblie
+          </ConfirmButton> */}
           {/* <ConfirmButton onClick={addToOrder}>selecteer de kabel</ConfirmButton> */}
         </DialogFooter>
       </Dialog>

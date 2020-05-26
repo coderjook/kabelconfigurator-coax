@@ -6,8 +6,8 @@ import AddUser from "./AddUser";
 
 const User = () => {
   const users = [
-    { id: 1, name: "John", lastname: "Doep" },
-    { id: 2, name: "Joanna", lastname: "Dippe" },
+    // { id: 1, name: "John", lastname: "Doep" },
+    // { id: 2, name: "Joanna", lastname: "Dippe" },
   ];
   return (
     <div>
