@@ -1,11 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { haspels } from "../../../Data/HaspelData";
-import {
-  Product,
-  ProductGrid,
-  ProductLabel,
-} from "../../../Styles/ProductGrid";
+import { Product, ProductGrid, ProductName } from "../../../Styles/ProductGrid";
 import { formatPrice } from "../../../Data/HaspelData";
 
 const ProductStyled = styled.div`
@@ -26,10 +22,10 @@ function HaspelGrid({ setOpenHaspelDialog }) {
                   setOpenHaspelDialog(haspel);
                 }}
               >
-                <ProductLabel>
+                <ProductName>
                   <div>{haspel.typenummer}</div>
                   <div>{formatPrice(haspel.inkoopprijs)}</div>
-                </ProductLabel>
+                </ProductName>
               </Product>
             ))}
           </ProductGrid>

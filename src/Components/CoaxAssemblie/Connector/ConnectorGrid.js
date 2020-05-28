@@ -4,7 +4,9 @@ import { connectors } from "../../../Data/ConnectorData";
 import {
   Product,
   ProductGrid,
-  ProductLabel,
+  ProductName,
+  ProductImg,
+  ProductDetails,
 } from "../../../Styles/ProductGrid";
 import { formatPrice } from "../../../Data/ConnectorData";
 
@@ -38,10 +40,23 @@ function ConnectorGrid({ setOpenConnectorDialog, orders }) {
                       setOpenConnectorDialog(connector);
                     }}
                   >
-                    <ProductLabel>
+                    <ProductImg img={connector.img} />
+                    <ProductName>
                       <div>{connector.typenummer}</div>
-                      <div>{formatPrice(connector.inkoopprijs)}</div>
-                    </ProductLabel>
+                    </ProductName>
+                    <ProductDetails>
+                      <div>artikelnummer: {connector.artikelnummer}</div>
+                      <div>
+                        inkoopprijs: {formatPrice(connector.inkoopprijs)} per{" "}
+                        {connector.prijsper}
+                      </div>
+                      <div>kabelgroep: {connector.kabelgroep}</div>
+                      <div>merk: {connector.merk}</div>
+                      <div>
+                        type:
+                        {connector.connectortype}
+                      </div>
+                    </ProductDetails>
                   </Product>
                 </>
               ))}

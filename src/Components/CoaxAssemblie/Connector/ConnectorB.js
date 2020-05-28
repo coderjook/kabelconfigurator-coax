@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { ProductHeader } from "../../../Styles/ProductStyle";
 import { ConnectorDialog } from "./ConnectorDialog";
 import ConnectorGrid from "./ConnectorGrid";
 import { useOpenConnectorDialog } from "../../../Hooks/useOpenConnectorDialog";
@@ -13,13 +14,21 @@ function Connector({ ...orders }) {
       {connectorHeader ? (
         <>
           {" "}
-          <h1>{connectorHeader}</h1>
-          <button onClick={() => setShowConnectorGrid(true)}>
-            wijzig connector
-          </button>{" "}
+          <ProductHeader>
+            <div>Geselecteerde connector: {connectorHeader}</div>
+            <div>
+              <button onClick={() => setShowConnectorGrid(true)}>
+                selecteer een andere connector
+              </button>{" "}
+            </div>
+            <div />
+          </ProductHeader>
         </>
       ) : (
-        <h1>Stap 3: Selecteer een connector kant B</h1>
+        <ProductHeader>
+          <div>Stap 2: Selecteer een connector voor kant B</div>
+          <div /> <div />
+        </ProductHeader>
       )}
       <ConnectorDialog
         {...openConnectorDialog}

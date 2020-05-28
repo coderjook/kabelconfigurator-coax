@@ -4,7 +4,9 @@ import { cables } from "../../../Data/CableData";
 import {
   Product,
   ProductGrid,
-  ProductLabel,
+  ProductImg,
+  ProductName,
+  ProductDetails,
 } from "../../../Styles/ProductGrid";
 import { formatPrice } from "../../../Data/CableData";
 
@@ -20,17 +22,31 @@ function CableGrid({ setOpenCableDialog }) {
           <h3> {sectionName} </h3>
           <ProductGrid>
             {cables.map((cable) => (
-              <Product
-                img={cable.img}
-                onClick={() => {
-                  setOpenCableDialog(cable);
-                }}
-              >
-                <ProductLabel>
-                  <div>{cable.typenummer}</div>
-                  <div>{formatPrice(cable.inkoopprijs)}</div>
-                </ProductLabel>
-              </Product>
+              <>
+                <Product
+                  onClick={() => {
+                    setOpenCableDialog(cable);
+                  }}
+                >
+                  <ProductImg img={cable.img} />
+                  <ProductName>
+                    <div>{cable.typenummer}</div>
+                  </ProductName>
+                  <ProductDetails>
+                    <div>artikelnummer: {cable.artikelnummer}</div>
+                    <div>
+                      inkoopprijs: {formatPrice(cable.inkoopprijs)} per{" "}
+                      {cable.prijsper}
+                    </div>
+                    <div>kabelgroep: {cable.kabelgroep}</div>
+                    <div>maximale lengte: {cable.opmaak_aantal}</div>
+                    <div>
+                      geschikt voor haspel:{" "}
+                      {cable.haspelgeschikt ? "ja" : "nee"}
+                    </div>
+                  </ProductDetails>
+                </Product>
+              </>
             ))}
           </ProductGrid>
         </>

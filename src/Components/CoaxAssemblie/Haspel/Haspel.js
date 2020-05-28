@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { ProductHeader } from "../../../Styles/ProductStyle";
 import HaspelGrid from "./HaspelGrid";
 import { HaspelDialog } from "./HaspelDialog";
 import { useOpenHaspelDialog } from "../../../Hooks/useOpenHaspelDialog";
@@ -9,17 +10,24 @@ function Haspel({ ...orders }) {
   const [haspelHeader, setHaspelHeader] = useState();
   return (
     <>
-      <p>haspelgeschikt: {orders.haspelgeschikt}</p>
       {haspelHeader ? (
         <>
           {" "}
-          <h1>{haspelHeader}</h1>
-          <button onClick={() => setShowHaspelGrid(true)}>
-            wijzig haspel
-          </button>{" "}
+          <ProductHeader>
+            <div>Geselecteerde haspel: {haspelHeader}</div>
+            <div>
+              <button onClick={() => setShowHaspelGrid(true)}>
+                selecteer een andere haspel
+              </button>{" "}
+            </div>
+            <div />
+          </ProductHeader>
         </>
       ) : (
-        <h1>Stap 4: Selecteer een Haspel</h1>
+        <ProductHeader>
+          <div>Stap 4: Selecteer afwerking: Haspel of Gebonden</div>
+          <div /> <div />
+        </ProductHeader>
       )}
       <HaspelDialog
         {...openHaspel}

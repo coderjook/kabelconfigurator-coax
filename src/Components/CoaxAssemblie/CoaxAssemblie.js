@@ -7,7 +7,6 @@ import Haspel from "./Haspel/Haspel";
 import Afwerking from "./Afwerking/Afwerking";
 import { Order } from "./Order/Order";
 import { useOrders } from "../../Hooks/useOrders";
-import User from "./Assemblie/User";
 
 function CoaxAssemblie() {
   const assemblies = [];
@@ -23,7 +22,6 @@ function CoaxAssemblie() {
         <ConnectorB {...orders} />
         <Haspel {...orders} />
         <Afwerking {...orders} />
-        <User />
       </AssemblieContextProvider>
     </>
   );
