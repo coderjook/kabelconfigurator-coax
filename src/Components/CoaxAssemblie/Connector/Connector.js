@@ -1,18 +1,25 @@
 import React, { useState } from "react";
-import { ProductHeader } from "../../../Styles/ProductStyle";
+import { ProductHeader, ProductStyled } from "../../../Styles/ProductStyle";
 import { ConnectorDialog } from "./ConnectorDialog";
 import ConnectorGrid from "./ConnectorGrid";
 import { useOpenConnectorDialog } from "../../../Hooks/useOpenConnectorDialog";
+import { ChangeButton } from "../../../Styles/ButtonStyle";
+import {
+  Product,
+  ProductGrid3,
+  ProductImg,
+  ProductName,
+  ProductDetails,
+} from "../../../Styles/ProductGrid";
 
 function Connector({ ...orders }) {
   const openConnectorDialog = useOpenConnectorDialog();
   const [showConnectorGrid, setShowConnectorGrid] = useState(true);
-  const [connectorHeader, setConnectorHeader] = useState();
   const [currentConnectorA, setCurrentConnectorA] = useState({});
 
   const updateCurrentConnectorA = (order) => {
-    const newCurrentConnector = order;
-    setCurrentConnectorA(newCurrentConnector);
+    const newCurrentConnectorA = order;
+    setCurrentConnectorA(newCurrentConnectorA);
   };
 
   return (
@@ -25,11 +32,51 @@ function Connector({ ...orders }) {
             <div></div>
             <div />
           </ProductHeader>
-          <div>
-            <button onClick={() => setShowConnectorGrid(true)}>
-              selecteer een andere connector
-            </button>{" "}
-          </div>
+          <ProductStyled>
+            <ProductGrid3>
+              <div>
+                <Product
+                  onClick={() => {
+                    openConnectorDialog.setOpenConnectorDialog(
+                      currentConnectorA
+                    );
+                  }}
+                >
+                  {/* <ProductImg img={currentConnectorA.img} /> */}
+                  <ProductName>
+                    <div>{currentConnectorA.typenummer}</div>
+                  </ProductName>
+                  <ProductDetails>
+                    <div>Artikelnummer: {currentConnectorA.artikelnummer}</div>
+                    <div>typenummer: {currentConnectorA.typenummer}</div>
+                    <div>afwerking: {currentConnectorA.installation}</div>
+                    <div>
+                      {currentConnectorA.tule
+                        ? `${currentConnectorA.tule}`
+                        : null}
+                    </div>
+                  </ProductDetails>
+                </Product>
+              </div>
+              <div>
+                <Product>
+                  <ChangeButton
+                    onClick={() => {
+                      openConnectorDialog.setOpenConnectorDialog(
+                        currentConnectorA
+                      );
+                    }}
+                  >
+                    Wijzig connector afwerking
+                  </ChangeButton>
+                  <ChangeButton onClick={() => setShowConnectorGrid(true)}>
+                    selecteer een andere connector
+                  </ChangeButton>
+                </Product>
+              </div>
+              <div />
+            </ProductGrid3>
+          </ProductStyled>
         </>
       ) : null}
       <ConnectorDialog
@@ -37,7 +84,6 @@ function Connector({ ...orders }) {
         {...orders}
         closeShowConnectorGrid={() => setShowConnectorGrid(false)}
         updateCurrentConnectorA={(order) => updateCurrentConnectorA(order)}
-        // selectedConnector={(connectorName) => setConnectorHeader(connectorName)}
         connector="connA"
       />
       {showConnectorGrid ? (
@@ -48,23 +94,7 @@ function Connector({ ...orders }) {
           </ProductHeader>
           <ConnectorGrid {...openConnectorDialog} {...orders} />
         </>
-      ) : (
-        <>
-          <ProductHeader>
-            <div>Stap 2: Selecteer een connector voor kant A</div>
-            <div /> <div />
-          </ProductHeader>
-        </>
-      )}
-
-      {/* {!currentConnectorA && !showConnectorGrid ? (
-        <>
-          <ProductHeader>
-            <div>Stap 2: Selecteer een connector voor kant A</div>
-            <div /> <div />
-          </ProductHeader>
-        </>
-      ) : null} */}
+      ) : null}
     </>
   );
 }

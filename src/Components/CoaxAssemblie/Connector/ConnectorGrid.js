@@ -8,11 +8,8 @@ import {
   ProductImg,
   ProductDetails,
 } from "../../../Styles/ProductGrid";
+import { ProductStyled } from "../../../Styles/ProductStyle";
 import { formatPrice } from "../../../Data/ConnectorData";
-
-const ProductStyled = styled.div`
-  margin: 0px 400px 50px 20px;
-`;
 
 function ConnectorGrid({ setOpenConnectorDialog, orders }) {
   let orderKabelgroep = null;
@@ -26,11 +23,11 @@ function ConnectorGrid({ setOpenConnectorDialog, orders }) {
 
   return (
     <ProductStyled>
-      {orderKabelgroep}
+      {/* {orderKabelgroep} */}
       {Object.entries(connectors).map(([kabelgroep, connectors]) =>
         kabelgroep === orderKabelgroep ? (
           <>
-            <h3> {kabelgroep} </h3>
+            {/* <h3> {kabelgroep} </h3> */}
             <ProductGrid>
               {connectors.map((connector) => (
                 <>

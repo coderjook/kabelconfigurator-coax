@@ -1,6 +1,10 @@
 import styled from "styled-components";
 import { romalBlauw, romalLichtBlauw } from "./colors";
 
+export const ProductStyled = styled.div`
+  margin: 0px 400px 0px 0px;
+`;
+
 export const ProductHeader = styled.div`
   display: grid;
   background-color: ${romalLichtBlauw};

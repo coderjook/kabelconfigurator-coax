@@ -12,11 +12,12 @@ export const ProductGrid = styled.div`
 export const ProductGrid3 = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  justify-items: center;
+  justify-items: start;
   row-gap: 20px;
   column-gap: 5px;
 
   padding-bottom: 20px;
+  padding-left: 20px;
 `;
 
 export const ProductLabel = styled.div`

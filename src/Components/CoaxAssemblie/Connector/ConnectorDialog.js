@@ -35,6 +35,7 @@ function ConnectorDialogContainer({
   openConnectorDialog,
   setOpenConnectorDialog,
   updateCurrentConnectorA,
+  updateCurrentConnectorB,
   setOrders,
   orders,
   connector,
@@ -76,6 +77,7 @@ function ConnectorDialogContainer({
       updateCurrentConnectorA(order);
     } else {
       UpdateAssemblieConnB(openConnectorDialog.typenummer, tuleOrder);
+      updateCurrentConnectorB(order);
     }
     closeShowConnectorGrid();
     close();
