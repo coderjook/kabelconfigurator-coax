@@ -17,7 +17,6 @@ function CableDialogContainer({
   openCableDialog,
   setOpenCableDialog,
   closeShowCableGrid,
-  selectedCable,
   updateCurrentCable,
   setOrders,
   orders,
@@ -47,16 +46,9 @@ function CableDialogContainer({
   function addToOrder() {
     setOrders([...orders, order]);
     close();
-    selectedCable(openCableDialog.typenummer);
     closeShowCableGrid();
     addNewAssemblie(openCableDialog.typenummer, cableLength.value);
-    updateCurrentCable(
-      openCableDialog.artikelnummer,
-      openCableDialog.typenummer,
-      openCableDialog.merk,
-      cableLength.value,
-      openCableDialog.img
-    );
+    updateCurrentCable(order);
   }
 
   return (

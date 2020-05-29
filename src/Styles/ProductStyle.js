@@ -11,7 +11,7 @@ export const ProductHeader = styled.div`
   // column-gap: 5px;
   padding: 15px 10px 15px 20px;
   margin-bottom: 10px;
-  font-size: 30px;
+  font-size: 25px;
   ${({ active }) =>
     active
       ? `

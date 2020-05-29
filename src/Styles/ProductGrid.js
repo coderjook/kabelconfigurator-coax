@@ -6,8 +6,7 @@ export const ProductGrid = styled.div`
   justify-items: center;
   row-gap: 20px;
   column-gap: 5px;
-
-  padding-bottom: 100px;
+  padding-bottom: 20px;
 `;
 
 export const ProductGrid3 = styled.div`
@@ -17,7 +16,7 @@ export const ProductGrid3 = styled.div`
   row-gap: 20px;
   column-gap: 5px;
 
-  padding-bottom: 100px;
+  padding-bottom: 20px;
 `;
 
 export const ProductLabel = styled.div`
@@ -28,7 +27,6 @@ export const ProductLabel = styled.div`
 
 export const Product = styled.div`
   width: 90%;
-
   margin-top: 5px;
   // border-radius: 7px;
   transition-property: box-shadow margin-top filter;

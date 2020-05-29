@@ -34,6 +34,7 @@ function ConnectorDialogContainer({
   selectedConnector,
   openConnectorDialog,
   setOpenConnectorDialog,
+  updateCurrentConnectorA,
   setOrders,
   orders,
   connector,
@@ -69,9 +70,10 @@ function ConnectorDialogContainer({
 
   function addToOrder() {
     setOrders([...orders, order]);
-    selectedConnector(openConnectorDialog.typenummer);
+    // selectedConnector(openConnectorDialog.typenummer);
     if (connector === "connA") {
       UpdateAssemblieConnA(openConnectorDialog.typenummer, tuleOrder);
+      updateCurrentConnectorA(order);
     } else {
       UpdateAssemblieConnB(openConnectorDialog.typenummer, tuleOrder);
     }

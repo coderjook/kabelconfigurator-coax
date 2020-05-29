@@ -8,38 +8,63 @@ function Connector({ ...orders }) {
   const openConnectorDialog = useOpenConnectorDialog();
   const [showConnectorGrid, setShowConnectorGrid] = useState(true);
   const [connectorHeader, setConnectorHeader] = useState();
+  const [currentConnectorA, setCurrentConnectorA] = useState({});
+
+  const updateCurrentConnectorA = (order) => {
+    const newCurrentConnector = order;
+    setCurrentConnectorA(newCurrentConnector);
+  };
 
   return (
     <>
-      {connectorHeader ? (
+      {currentConnectorA && !showConnectorGrid ? (
         <>
           {" "}
           <ProductHeader>
-            <div>Geselecteerde connector: {connectorHeader}</div>
-            <div>
-              <button onClick={() => setShowConnectorGrid(true)}>
-                selecteer een andere connector
-              </button>{" "}
-            </div>
+            <div>Geselecteerde connector: {currentConnectorA.typenummer}</div>
+            <div></div>
             <div />
           </ProductHeader>
+          <div>
+            <button onClick={() => setShowConnectorGrid(true)}>
+              selecteer een andere connector
+            </button>{" "}
+          </div>
         </>
-      ) : (
-        <ProductHeader>
-          <div>Stap 2: Selecteer een connector voor kant A</div>
-          <div /> <div />
-        </ProductHeader>
-      )}
+      ) : null}
       <ConnectorDialog
         {...openConnectorDialog}
         {...orders}
         closeShowConnectorGrid={() => setShowConnectorGrid(false)}
-        selectedConnector={(connectorName) => setConnectorHeader(connectorName)}
+        updateCurrentConnectorA={(order) => updateCurrentConnectorA(order)}
+        // selectedConnector={(connectorName) => setConnectorHeader(connectorName)}
         connector="connA"
       />
       {showConnectorGrid ? (
-        <ConnectorGrid {...openConnectorDialog} {...orders} />
-      ) : null}
+        <>
+          <ProductHeader active>
+            <div>Stap 2: Selecteer een connector voor kant A</div>
+            <div /> <div />
+          </ProductHeader>
+          <ConnectorGrid {...openConnectorDialog} {...orders} />
+        </>
+      ) : (
+        <>
+          <ProductHeader>
+            <div>Stap 2: Selecteer een connector voor kant A</div>
+            <div /> <div />
+          </ProductHeader>
+        </>
+      )}
+
+      {/* {!currentConnectorA && !showConnectorGrid ? (
+        <>
+          <ProductHeader>
+            <div>Stap 2: Selecteer een connector voor kant A</div>
+            <div /> <div />
+          </ProductHeader>
+        </>
+      ) : null} */}
     </>
   );
 }
