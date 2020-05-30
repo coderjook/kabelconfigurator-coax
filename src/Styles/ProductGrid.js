@@ -11,13 +11,14 @@ export const ProductGrid = styled.div`
 
 export const ProductGrid3 = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 2fr 2fr 1fr;
   justify-items: start;
-  row-gap: 20px;
+  row-gap: 5px;
   column-gap: 5px;
 
   padding-bottom: 20px;
-  padding-left: 20px;
+  // padding-left: 20px;
+  margin-left: 20px;
 `;
 
 export const ProductLabel = styled.div`
@@ -27,16 +28,16 @@ export const ProductLabel = styled.div`
 `;
 
 export const Product = styled.div`
-  width: 90%;
-  margin-top: 5px;
+  width: 95%;
+  margin: 5px;
   // border-radius: 7px;
   transition-property: box-shadow margin-top filter;
   transition-duration: 0.1s;
   box-shadow: 0px 0px 1px 0px grey;
   &:hover {
     cursor: pointer;
-    margin-top: 0px;
-    margin-bottom: 5px;
+    // margin-top: 0px;
+    // margin-bottom: 5px;
     // filter: contrast(100%);
     box-shadow: 0px 0px 3px 0px grey;
   }

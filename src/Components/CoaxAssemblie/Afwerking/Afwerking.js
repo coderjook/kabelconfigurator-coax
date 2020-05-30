@@ -7,6 +7,7 @@ function Afwerking({ orders, setOrders }) {
   const [transKrimpkous, setTransKrimpkous] = useState("geen");
   const [lengthTransKrimpkous, setLengthTransKrimpkous] = useState(1);
   const { UpdateAssemblieAfwerking } = useContext(AssemblieContext);
+  const [toggleContent, setToggleContent] = useState(false);
 
   const handleChange = (event) => {
     setTransKrimpkous(event.target.value);

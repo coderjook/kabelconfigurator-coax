@@ -1,25 +1,32 @@
 import React from "react";
 import styled from "styled-components";
+import { romalLichtBlauw } from "../../Styles/colors";
 import { title } from "../../Styles/title";
+import Romallogo from "../../Assets/Images/romal-logo.JPG";
 
 const NavbarStyled = styled.div`
-  background-color: #243d91;
-  padding: 10px;
+  background-color: ${romalLichtBlauw};
+  // padding: 10px;
   position: fixed;
   width: 100%;
   z-index: 999;
 `;
 
 const Logo = styled(title)`
-  font-size: 20px;
+  display: inline;
+  font-size: 50px;
+  padding-left: 20px;
   color: white;
-  text-shadow: 1px 1px 4px #380502;
+  text-shadow: 1px 1px 4px grey;
 `;
 
 export function Navbar() {
   return (
     <NavbarStyled>
-      <Logo>ROMAL KABELCONFIGURATOR</Logo>
+      <Logo>
+        <img src={Romallogo} alt="romal-logo" />
+      </Logo>
+      <Logo>KABELCONFIGURATOR</Logo>
     </NavbarStyled>
   );
 }

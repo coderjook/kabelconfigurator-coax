@@ -7,12 +7,17 @@ import { useOpenHaspelDialog } from "../../../Hooks/useOpenHaspelDialog";
 
 function Haspel({ ...orders }) {
   const openHaspel = useOpenHaspelDialog();
-  const [showHaspelGrid, setShowHaspelGrid] = useState(true);
+  const [showHaspelGrid, setShowHaspelGrid] = useState(false);
   const [opmaakHaspel, setOpmaakHaspel] = useState(999999);
+  const [toggleContent, setToggleContent] = useState(false);
   const [haspelHeader, setHaspelHeader] = useState();
 
   const handleChange = (event) => {
     setOpmaakHaspel(event.target.value);
+  };
+
+  const toggleShowContent = () => {
+    setToggleContent(!toggleContent);
   };
 
   return (
@@ -23,7 +28,7 @@ function Haspel({ ...orders }) {
           <ProductHeader>
             <div>Geselecteerde haspel: {haspelHeader}</div>
             <div>
-              <button onClick={() => setShowHaspelGrid(true)}>
+              <button onClick={() => setToggleContent(true)}>
                 selecteer een andere haspel
               </button>{" "}
             </div>
@@ -31,7 +36,7 @@ function Haspel({ ...orders }) {
           </ProductHeader>
         </>
       ) : (
-        <ProductHeader>
+        <ProductHeader active onClick={toggleShowContent}>
           <div>Stap 4: Selecteer afwerking: Haspel of Gebonden</div>
           <div /> <div />
         </ProductHeader>
@@ -39,7 +44,7 @@ function Haspel({ ...orders }) {
       <HaspelDialog
         {...openHaspel}
         {...orders}
-        closeShowHaspelGrid={() => setShowHaspelGrid(false)}
+        closeShowHaspelGrid={() => setToggleContent(false)}
         selectedHaspel={(haspelName) => setHaspelHeader(haspelName)}
       />
       {/* <ProductContent>
@@ -79,7 +84,7 @@ function Haspel({ ...orders }) {
       {/* </div>
         </div>
       </ProductContent> */}
-      {showHaspelGrid ? <HaspelGrid {...openHaspel} /> : null}
+      {toggleContent ? <HaspelGrid {...openHaspel} /> : null}
     </>
   );
 }
