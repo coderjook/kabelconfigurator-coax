@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { useToggleContent } from "../../../Hooks/useToggleContent";
 
 import { ProductHeader, ProductContent } from "../../../Styles/ProductStyle";
 import HaspelGrid from "./HaspelGrid";
@@ -19,9 +20,9 @@ const ProductContentCheck = styled.div`
 
 function Haspel({ ...orders }) {
   const openHaspel = useOpenHaspelDialog();
+  const toggleContent = useToggleContent();
   const [showHaspelGrid, setShowHaspelGrid] = useState(false);
   const [opmaakHaspel, setOpmaakHaspel] = useState("gebonden");
-  const [toggleContent, setToggleContent] = useState(false);
   const [haspelHeader, setHaspelHeader] = useState();
   const [currentHaspel, setCurrentHaspel] = useState({});
 
@@ -34,23 +35,23 @@ function Haspel({ ...orders }) {
     setOpmaakHaspel(event.target.value);
   };
 
-  const toggleShowContent = () => {
-    setToggleContent(!toggleContent);
-  };
+  // const toggleShowContent = () => {
+  //   setToggleContent(!toggleContent);
+  // };
 
   return (
     <>
       {haspelHeader ? (
         <>
           {" "}
-          <ProductHeader onClick={toggleShowContent}>
+          <ProductHeader onClick={toggleContent.toggleShowContent}>
             <div>Geselecteerde haspel: {haspelHeader}</div>
             <div></div>
             <div />
           </ProductHeader>
         </>
       ) : (
-        <ProductHeader active onClick={toggleShowContent}>
+        <ProductHeader active onClick={toggleContent.toggleShowContent}>
           <div>Stap 4: Selecteer afwerking: Haspel of Gebonden</div>
           <div /> <div />
         </ProductHeader>
@@ -58,11 +59,11 @@ function Haspel({ ...orders }) {
       <HaspelDialog
         {...openHaspel}
         {...orders}
-        closeShowHaspelGrid={() => setToggleContent(false)}
+        closeShowHaspelGrid={() => toggleContent.setToggleContent(false)}
         updateCurrentHaspel={(order) => updateCurrentHaspel(order)}
         selectedHaspel={(haspelName) => setHaspelHeader(haspelName)}
       />
-      {toggleContent ? (
+      {toggleContent.toggleContent ? (
         <>
           <ProductContentCheck>
             <div>

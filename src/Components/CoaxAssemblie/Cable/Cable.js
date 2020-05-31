@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import CableGrid from "./CableGrid";
+import { useToggleContent } from "../../../Hooks/useToggleContent";
 import { ProductHeader, ProductStyled } from "../../../Styles/ProductStyle";
 import { CableDialog } from "./CableDialog";
 import { useOpenCableDialog } from "../../../Hooks/useOpenCableDialog";
@@ -13,6 +14,7 @@ import {
 import { ChangeButton } from "../../../Styles/ButtonStyle";
 
 function Cable({ ...orders }) {
+  const toggleContent = useToggleContent();
   const openCableDialog = useOpenCableDialog();
   const [showCableGrid, setShowCableGrid] = useState(true);
   const [currentCable, setCurrentCable] = useState({});
@@ -27,7 +29,7 @@ function Cable({ ...orders }) {
       {currentCable && !showCableGrid ? (
         <>
           {" "}
-          <ProductHeader>
+          <ProductHeader onClick={toggleContent.toggleShowContent}>
             <div>
               Geselecteerde Kabel: {currentCable.typenummer} Lengte:{" "}
               {currentCable.cableLength}
@@ -35,43 +37,45 @@ function Cable({ ...orders }) {
             <div></div>
             <div />
           </ProductHeader>
-          <ProductStyled>
-            <ProductGrid3>
-              <div>
-                <Product
-                  onClick={() => {
-                    openCableDialog.setOpenCableDialog(currentCable);
-                  }}
-                >
-                  {/* <ProductImg img={currentCable.img} /> */}
-                  <ProductName>
-                    <div>{currentCable.typenummer}</div>
-                  </ProductName>
-                  <ProductDetails>
-                    <div>Artikelnummer: {currentCable.artikelnummer}</div>
-                    <div>typenummer: {currentCable.typenummer}</div>
-                    <div>merk: {currentCable.merk}</div>
-                    <div>lengte: {currentCable.cableLength}</div>
-                  </ProductDetails>
-                </Product>
-              </div>
-              <div>
-                <Product>
-                  <ChangeButton
+          {toggleContent.toggleContent ? (
+            <ProductStyled>
+              <ProductGrid3>
+                <div>
+                  <Product
                     onClick={() => {
                       openCableDialog.setOpenCableDialog(currentCable);
                     }}
                   >
-                    Wijzig lengte kabel
-                  </ChangeButton>
-                  <ChangeButton onClick={() => setShowCableGrid(true)}>
-                    selecteer een andere kabel
-                  </ChangeButton>
-                </Product>
-              </div>
-              <div />
-            </ProductGrid3>
-          </ProductStyled>
+                    {/* <ProductImg img={currentCable.img} /> */}
+                    <ProductName>
+                      <div>{currentCable.typenummer}</div>
+                    </ProductName>
+                    <ProductDetails>
+                      <div>Artikelnummer: {currentCable.artikelnummer}</div>
+                      <div>typenummer: {currentCable.typenummer}</div>
+                      <div>merk: {currentCable.merk}</div>
+                      <div>lengte: {currentCable.cableLength}</div>
+                    </ProductDetails>
+                  </Product>
+                </div>
+                <div>
+                  <Product>
+                    <ChangeButton
+                      onClick={() => {
+                        openCableDialog.setOpenCableDialog(currentCable);
+                      }}
+                    >
+                      Wijzig lengte kabel
+                    </ChangeButton>
+                    <ChangeButton onClick={() => setShowCableGrid(true)}>
+                      selecteer een andere kabel
+                    </ChangeButton>
+                  </Product>
+                </div>
+                <div />
+              </ProductGrid3>
+            </ProductStyled>
+          ) : null}
         </>
       ) : null}
       <CableDialog

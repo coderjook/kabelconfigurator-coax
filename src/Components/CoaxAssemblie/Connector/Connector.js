@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { ProductHeader, ProductStyled } from "../../../Styles/ProductStyle";
+import { useToggleContent } from "../../../Hooks/useToggleContent";
 import { ConnectorDialog } from "./ConnectorDialog";
 import ConnectorGrid from "./ConnectorGrid";
 import { useOpenConnectorDialog } from "../../../Hooks/useOpenConnectorDialog";
@@ -13,6 +14,7 @@ import {
 } from "../../../Styles/ProductGrid";
 
 function Connector({ ...orders }) {
+  const toggleContent = useToggleContent();
   const openConnectorDialog = useOpenConnectorDialog();
   const [showConnectorGrid, setShowConnectorGrid] = useState(true);
   const [currentConnectorA, setCurrentConnectorA] = useState({});
@@ -27,56 +29,60 @@ function Connector({ ...orders }) {
       {currentConnectorA && !showConnectorGrid ? (
         <>
           {" "}
-          <ProductHeader>
+          <ProductHeader onClick={toggleContent.toggleShowContent}>
             <div>Geselecteerde connector: {currentConnectorA.typenummer}</div>
             <div></div>
             <div />
           </ProductHeader>
-          <ProductStyled>
-            <ProductGrid3>
-              <div>
-                <Product
-                  onClick={() => {
-                    openConnectorDialog.setOpenConnectorDialog(
-                      currentConnectorA
-                    );
-                  }}
-                >
-                  {/* <ProductImg img={currentConnectorA.img} /> */}
-                  <ProductName>
-                    <div>{currentConnectorA.typenummer}</div>
-                  </ProductName>
-                  <ProductDetails>
-                    <div>Artikelnummer: {currentConnectorA.artikelnummer}</div>
-                    <div>typenummer: {currentConnectorA.typenummer}</div>
-                    <div>afwerking: {currentConnectorA.installation}</div>
-                    <div>
-                      {currentConnectorA.tule
-                        ? `${currentConnectorA.tule}`
-                        : null}
-                    </div>
-                  </ProductDetails>
-                </Product>
-              </div>
-              <div>
-                <Product>
-                  <ChangeButton
+          {toggleContent.toggleContent ? (
+            <ProductStyled>
+              <ProductGrid3>
+                <div>
+                  <Product
                     onClick={() => {
                       openConnectorDialog.setOpenConnectorDialog(
                         currentConnectorA
                       );
                     }}
                   >
-                    Wijzig connector afwerking
-                  </ChangeButton>
-                  <ChangeButton onClick={() => setShowConnectorGrid(true)}>
-                    selecteer een andere connector
-                  </ChangeButton>
-                </Product>
-              </div>
-              <div />
-            </ProductGrid3>
-          </ProductStyled>
+                    {/* <ProductImg img={currentConnectorA.img} /> */}
+                    <ProductName>
+                      <div>{currentConnectorA.typenummer}</div>
+                    </ProductName>
+                    <ProductDetails>
+                      <div>
+                        Artikelnummer: {currentConnectorA.artikelnummer}
+                      </div>
+                      <div>typenummer: {currentConnectorA.typenummer}</div>
+                      <div>afwerking: {currentConnectorA.installation}</div>
+                      <div>
+                        {currentConnectorA.tule
+                          ? `${currentConnectorA.tule}`
+                          : null}
+                      </div>
+                    </ProductDetails>
+                  </Product>
+                </div>
+                <div>
+                  <Product>
+                    <ChangeButton
+                      onClick={() => {
+                        openConnectorDialog.setOpenConnectorDialog(
+                          currentConnectorA
+                        );
+                      }}
+                    >
+                      Wijzig connector afwerking
+                    </ChangeButton>
+                    <ChangeButton onClick={() => setShowConnectorGrid(true)}>
+                      selecteer een andere connector
+                    </ChangeButton>
+                  </Product>
+                </div>
+                <div />
+              </ProductGrid3>
+            </ProductStyled>
+          ) : null}
         </>
       ) : null}
       <ConnectorDialog
