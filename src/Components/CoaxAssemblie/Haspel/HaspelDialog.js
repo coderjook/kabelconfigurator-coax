@@ -18,6 +18,7 @@ function HaspelDialogContainer({
   openHaspelDialog,
   setOpenHaspelDialog,
   closeShowHaspelGrid,
+  updateCurrentHaspel,
   selectedHaspel,
   setOrders,
   orders,
@@ -43,6 +44,7 @@ function HaspelDialogContainer({
   function addToOrder() {
     setOrders([...orders, order]);
     close();
+    updateCurrentHaspel(order);
     selectedHaspel(openHaspelDialog.typenummer);
     closeShowHaspelGrid();
   }

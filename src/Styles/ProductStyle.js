@@ -16,18 +16,24 @@ export const ProductHeader = styled.div`
   padding: 15px 10px 15px 20px;
   margin-bottom: 10px;
   font-size: 25px;
+  &:hover {
+    filter: contrast(80%);
+    color: ${romalBlauw};
+    cursor: pointer;
+  }
   ${({ active }) =>
     active
       ? `
     background-color: ${romalBlauw};
     color: white;
     &:hover {
+      color: white;
       cursor: pointer;
       
     }
   `
       : `
-    pointer-events: none; 
+    // pointer-events: none; 
   `}
 `;
 
