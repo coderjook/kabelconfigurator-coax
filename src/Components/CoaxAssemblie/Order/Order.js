@@ -18,6 +18,7 @@ export function Order({ orders, setOrders }) {
 
   // const tax = subtotal * 0.21;
   // const total = subtotal + tax;
+
   let subPriceCable = null;
   const getPriceCable = (order) => {
     subPriceCable = order.cableLength * (order.inkoopprijs / order.prijsper);
@@ -47,6 +48,11 @@ export function Order({ orders, setOrders }) {
 
   return (
     <>
+      {" "}
+      <OrderStyled>
+        <div>orderassemblie</div>
+        <AssemblieDetails />
+      </OrderStyled>
       <OrderStyled>
         <AssemblieDetails />
         {orders.length === 0 ? (
