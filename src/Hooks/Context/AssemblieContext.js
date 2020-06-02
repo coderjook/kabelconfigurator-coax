@@ -17,51 +17,118 @@ export const Provider = (props) => {
   );
 
   const defaultArtnr = 999999;
-  const addNewAssemblie = (artnrCable, lengthCable) => {
+  const addNewAssemblie = (
+    artnrCable,
+    detailsCable,
+    lengthCable,
+    groupCable,
+    priceCable,
+    diameterCable,
+    maxLengthCable,
+    haspelCable
+  ) => {
     const newAssemblie = {
       assemblieID: new Date().getTime().toString(),
       artnr_kabel: artnrCable,
+      details_kabel: detailsCable,
       lengte_kabel: lengthCable,
+      kabelgroep_kabel: groupCable,
+      prijs_kabel: priceCable,
+      diameter_buitenmantel: diameterCable,
+      opmaak_aantal: maxLengthCable,
+      haspelgeschikt: haspelCable,
+
       artnr_connector_a: defaultArtnr,
+      details_connector_a: "",
+      type_connector_a: "",
+      assemblage_connector_a: "",
+      prijs_connector_a: 0,
+      afwerking_connector_a: "geen",
       artnr_afwerking_a: defaultArtnr,
+
       artnr_connector_b: defaultArtnr,
+      details_connector_b: "",
+      type_connector_b: "",
+      assemblage_connector_b: "",
+      prijs_connector_b: 0,
+      afwerking_connector_b: "geen",
       artnr_afwerking_b: defaultArtnr,
+
       artnr_haspel: defaultArtnr,
+      details_haspel: "",
+      type_haspel: "",
+      prijshaspel: 0,
+
       trans_krimp: "geen afwerking",
-      lengte_trans_krimp: 2,
-      artnr_trans_krimp: 10593,
+      lengte_trans_krimp: 0,
+      artnr_trans_krimp: defaultArtnr,
     };
     setAssemblies(newAssemblie);
     setSelectedAssemblie(newAssemblie);
   };
 
-  const UpdateAssemblieConnA = (artnrConnA, installConnA) => {
+  const UpdateAssemblieConnA = (
+    artnrConnA,
+    detailsConnA,
+    typeConnA,
+    assemblageConnA,
+    prijsConnA,
+    installationConnA,
+    artnrInstallationConnA
+  ) => {
     const updateAssemblie = {
       ...assemblies,
     };
     updateAssemblie.artnr_connector_a = artnrConnA;
-    updateAssemblie.artnr_afwerking_a = installConnA;
+    updateAssemblie.details_connector_a = detailsConnA;
+    updateAssemblie.type_connector_a = typeConnA;
+    updateAssemblie.assemblage_connector_a = assemblageConnA;
+    updateAssemblie.prijs_connector_a = prijsConnA;
+    updateAssemblie.afwerking_connector_a = installationConnA;
+    updateAssemblie.artnr_afwerking_a = artnrInstallationConnA;
 
     setAssemblies(updateAssemblie);
     setSelectedAssemblie(updateAssemblie);
   };
 
-  const UpdateAssemblieConnB = (artnrConnB, installConnB) => {
+  const UpdateAssemblieConnB = (
+    artnrConnB,
+    detailsConnB,
+    typeConnB,
+    assemblageConnB,
+    prijsConnB,
+    installationConnB,
+    artnrInstallationConnB
+  ) => {
     const updateAssemblie = {
       ...assemblies,
     };
     updateAssemblie.artnr_connector_b = artnrConnB;
-    updateAssemblie.artnr_afwerking_b = installConnB;
+    updateAssemblie.details_connector_b = detailsConnB;
+    updateAssemblie.type_connector_b = typeConnB;
+    updateAssemblie.assemblage_connector_b = assemblageConnB;
+    updateAssemblie.prijs_connector_b = prijsConnB;
+    updateAssemblie.afwerking_connector_b = installationConnB;
+    updateAssemblie.artnr_afwerking_b = artnrInstallationConnB;
 
     setAssemblies(updateAssemblie);
     setSelectedAssemblie(updateAssemblie);
   };
 
-  const UpdateAssemblieHaspel = (artnrHaspel) => {
+  const UpdateAssemblieHaspel = (
+    artnrHaspel,
+    detailsHaspel,
+    typeHaspel,
+    prijsHaspel
+  ) => {
     const updateAssemblie = {
       ...assemblies,
     };
     updateAssemblie.artnr_haspel = artnrHaspel;
+    updateAssemblie.details_haspel = detailsHaspel;
+    updateAssemblie.type_haspel = typeHaspel;
+    updateAssemblie.prijshaspel = prijsHaspel;
+
     setAssemblies(updateAssemblie);
     setSelectedAssemblie(updateAssemblie);
   };
@@ -72,6 +139,7 @@ export const Provider = (props) => {
     };
     updateAssemblie.trans_krimp = transKrimp;
     updateAssemblie.lengte_trans_krimp = lengthKrimp;
+    // updateAssemblie.artnr_trans_krimp = artnrKrimp;
     setAssemblies(updateAssemblie);
     setSelectedAssemblie(updateAssemblie);
   };

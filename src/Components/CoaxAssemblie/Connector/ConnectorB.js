@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { ProductHeader, ProductStyled } from "../../../Styles/ProductStyle";
 import { useToggleContent } from "../../../Hooks/useToggleContent";
+import { AssemblieContext } from "../../../Hooks/Context/AssemblieContext";
 import { ConnectorDialog } from "./ConnectorDialog";
 import ConnectorGrid from "./ConnectorGrid";
 import { useOpenConnectorDialog } from "../../../Hooks/useOpenConnectorDialog";
@@ -14,23 +15,20 @@ import {
 } from "../../../Styles/ProductGrid";
 
 function Connector({ ...orders }) {
+  const { selectedAssemblie } = useContext(AssemblieContext);
   const toggleContent = useToggleContent();
   const openConnectorDialog = useOpenConnectorDialog();
   const [showConnectorGrid, setShowConnectorGrid] = useState(true);
-  const [currentConnectorB, setCurrentConnectorB] = useState({});
-
-  const updateCurrentConnectorB = (order) => {
-    const newCurrentConnectorB = order;
-    setCurrentConnectorB(newCurrentConnectorB);
-  };
 
   return (
     <>
-      {currentConnectorB && !showConnectorGrid ? (
+      {selectedAssemblie && !showConnectorGrid ? (
         <>
           {" "}
           <ProductHeader onClick={toggleContent.toggleShowContent}>
-            <div>Geselecteerde connector: {currentConnectorB.typenummer}</div>
+            <div>
+              Geselecteerde connector: {selectedAssemblie.details_connector_b}
+            </div>
             <div></div>
             <div />
           </ProductHeader>
@@ -41,24 +39,20 @@ function Connector({ ...orders }) {
                   <Product
                     onClick={() => {
                       openConnectorDialog.setOpenConnectorDialog(
-                        currentConnectorB
+                        selectedAssemblie
                       );
                     }}
                   >
-                    {/* <ProductImg img={currentConnectorB.img} /> */}
                     <ProductName>
-                      <div>{currentConnectorB.typenummer}</div>
+                      <div>{selectedAssemblie.details_connector_b}</div>
                     </ProductName>
                     <ProductDetails>
                       <div>
-                        Artikelnummer: {currentConnectorB.artikelnummer}
+                        Artikelnummer: {selectedAssemblie.artnr_connector_b}
                       </div>
-                      <div>typenummer: {currentConnectorB.typenummer}</div>
-                      <div>afwerking: {currentConnectorB.installation}</div>
+                      <div>type: {selectedAssemblie.type_connector_b}</div>
                       <div>
-                        {currentConnectorB.tule
-                          ? `${currentConnectorB.tule}`
-                          : null}
+                        afwerking: {selectedAssemblie.afwerking_connector_b}
                       </div>
                     </ProductDetails>
                   </Product>
@@ -68,7 +62,7 @@ function Connector({ ...orders }) {
                     <ChangeButton
                       onClick={() => {
                         openConnectorDialog.setOpenConnectorDialog(
-                          currentConnectorB
+                          selectedAssemblie
                         );
                       }}
                     >
@@ -87,9 +81,7 @@ function Connector({ ...orders }) {
       ) : null}
       <ConnectorDialog
         {...openConnectorDialog}
-        {...orders}
         closeShowConnectorGrid={() => setShowConnectorGrid(false)}
-        updateCurrentConnectorB={(order) => updateCurrentConnectorB(order)}
         connector="connB"
       />
       {showConnectorGrid ? (
@@ -98,7 +90,7 @@ function Connector({ ...orders }) {
             <div>Stap 3: Selecteer een connector voor kant B</div>
             <div /> <div />
           </ProductHeader>
-          <ConnectorGrid {...openConnectorDialog} {...orders} />
+          <ConnectorGrid {...openConnectorDialog} />
         </>
       ) : null}
     </>

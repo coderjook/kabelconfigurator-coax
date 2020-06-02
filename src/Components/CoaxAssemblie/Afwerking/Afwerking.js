@@ -8,7 +8,9 @@ function Afwerking({ orders, setOrders }) {
   const toggleContent = useToggleContent();
   const [transKrimpkous, setTransKrimpkous] = useState("geen");
   const [lengthTransKrimpkous, setLengthTransKrimpkous] = useState(1);
-  const { UpdateAssemblieAfwerking } = useContext(AssemblieContext);
+  const { UpdateAssemblieAfwerking, selectedAssemblie } = useContext(
+    AssemblieContext
+  );
 
   const handleChange = (event) => {
     setTransKrimpkous(event.target.value);
@@ -25,71 +27,86 @@ function Afwerking({ orders, setOrders }) {
   };
 
   function addToOrder() {
-    setOrders([...orders, order]);
-    UpdateAssemblieAfwerking(transKrimpkous, lengthTransKrimpkous);
+    // setOrders([...orders, order]);
+    UpdateAssemblieAfwerking(lengthTransKrimpkous, transKrimpkous);
   }
 
   return (
     <>
-      <ProductHeader active onClick={toggleContent.toggleShowContent}>
-        <div>Laatste stap: kies afwerking assemblie</div>
-        <div />
-        <div />
-      </ProductHeader>
+      {selectedAssemblie ? (
+        <>
+          {" "}
+          <ProductHeader onClick={toggleContent.toggleShowContent}>
+            <div>Geselecteerde afwerking: {selectedAssemblie.trans_krimp}</div>
+            <div></div>
+            <div />
+          </ProductHeader>
+        </>
+      ) : (
+        <>
+          <ProductHeader active onClick={toggleContent.toggleShowContent}>
+            <div>Laatste stap: kies afwerking assemblie</div>
+            <div />
+            <div />
+          </ProductHeader>
+        </>
+      )}
+      ;
       {toggleContent.toggleContent ? (
-        <ProductContent>
-          <div>
-            <h3> Kies de afwerking:</h3>
-          </div>
-          <div>
+        <>
+          <ProductContent>
             <div>
-              <input
-                type="radio"
-                id="geen"
-                name="geen"
-                value="geen"
-                checked={transKrimpkous === "geen"}
-                onChange={handleChange}
-              />
-              <label for="geen">geen afwerking</label>
+              <h3> Kies de afwerking:</h3>
             </div>
             <div>
-              <input
-                type="radio"
-                id="kantA"
-                name="kantA"
-                value="kantA"
-                checked={transKrimpkous === "kantA"}
-                onChange={handleChange}
-              />
-              <label for="kantB">transparante krimpkous alleen kant A</label>
+              <div>
+                <input
+                  type="radio"
+                  id="geen"
+                  name="geen"
+                  value="geen"
+                  checked={transKrimpkous === "geen"}
+                  onChange={handleChange}
+                />
+                <label for="geen">geen afwerking</label>
+              </div>
+              <div>
+                <input
+                  type="radio"
+                  id="kantA"
+                  name="kantA"
+                  value="kantA"
+                  checked={transKrimpkous === "kantA"}
+                  onChange={handleChange}
+                />
+                <label for="kantB">transparante krimpkous alleen kant A</label>
+              </div>
+              <div>
+                <input
+                  type="radio"
+                  id="kantB"
+                  name="kantB"
+                  value="kantB"
+                  checked={transKrimpkous === "kantB"}
+                  onChange={handleChange}
+                />
+                <label for="kantB">transparante krimpkous alleen kant B</label>
+              </div>
+              <div>
+                <input
+                  type="radio"
+                  id="beideKanten"
+                  name="beideKanten"
+                  value="beideKanten"
+                  checked={transKrimpkous === "beideKanten"}
+                  onChange={handleChange}
+                />
+                <label for="beideKanten">
+                  transparante krimpkous op beide kanten
+                </label>
+              </div>{" "}
             </div>
-            <div>
-              <input
-                type="radio"
-                id="kantB"
-                name="kantB"
-                value="kantB"
-                checked={transKrimpkous === "kantB"}
-                onChange={handleChange}
-              />
-              <label for="kantB">transparante krimpkous alleen kant B</label>
-            </div>
-            <div>
-              <input
-                type="radio"
-                id="beideKanten"
-                name="beideKanten"
-                value="beideKanten"
-                checked={transKrimpkous === "beideKanten"}
-                onChange={handleChange}
-              />
-              <label for="beideKanten">
-                transparante krimpkous op beide kanten
-              </label>
-            </div>
-            <p></p>
-            <div>
+            <p>
               {transKrimpkous === "geen" ? (
                 <p>geen transparante krimpkous</p>
               ) : (
@@ -104,29 +121,13 @@ function Afwerking({ orders, setOrders }) {
                   />
                 </div>
               )}
-              <ConfirmButton onClick={addToOrder}>
-                selecteer de afwerking
-              </ConfirmButton>
-            </div>
-          </div>
-          {/* <div>
-          {transKrimpkous === "geen" ? (
-            <p>geen transparante krimpkous</p>
-          ) : (
-            <div>
-              Lengte transparante krimpkous cm
-              <input
-                type="text"
-                id="lengthTransKrimp"
-                name="lengthTransKrimp"
-                value={lengthTransKrimpkous}
-                onChange={handleChangeLength}
-              />
-            </div>
-          )}
-          <ConfirmButton onClick={addToOrder}>add to order</ConfirmButton>
-        </div> */}
-        </ProductContent>
+            </p>
+
+            <ConfirmButton onClick={addToOrder}>
+              selecteer de afwerking
+            </ConfirmButton>
+          </ProductContent>
+        </>
       ) : null}
       ;
     </>

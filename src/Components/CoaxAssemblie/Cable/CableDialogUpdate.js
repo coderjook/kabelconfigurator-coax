@@ -17,6 +17,9 @@ function CableDialogContainer({
   openCableDialog,
   setOpenCableDialog,
   closeShowCableGrid,
+  updateCurrentCable,
+  setOrders,
+  orders,
 }) {
   const cableLength = useLength(openCableDialog && openCableDialog.cablelength);
   const { addNewAssemblie } = useContext(AssemblieContext);
@@ -24,6 +27,40 @@ function CableDialogContainer({
   function close() {
     setOpenCableDialog();
   }
+
+  // const order = {
+  //   assemblieItem: "cable",
+  //   ...openCableDialog,
+  //   cableLength: cableLength.value,
+  // };
+
+  // function editOrder() {
+  //   console.log("edit de kabel");
+  //   // const newOrders = [...orders];
+  //   // newOrders[openCableDialog.index] = order;
+  //   // setOrders(newOrders);
+  //   const newOrders = [...orders];
+  //   orders.map((order) =>
+  //     order.assemblieItem === "cable"
+  //       ? // removing the element using splice
+  //         newOrders.splice(order, 1)
+  //       : null
+  //   );
+  //   setOrders([...newOrders, order]);
+  // }
+
+  // function removeCable() {
+  //   const newOrders = [...orders];
+  //   orders.map((order) =>
+  //     order.assemblieItem === "cable" || order.assemblieItem === "connector"
+  //       ? // removing the element using splice
+  //         newOrders.splice(order, 1)
+  //       : null
+  //   );
+  //   setOrders([...newOrders]);
+  //   addNewAssemblie();
+  //   console.log("verwijderkabels");
+  // }
 
   function addToOrder() {
     closeShowCableGrid();
@@ -53,6 +90,7 @@ function CableDialogContainer({
           <DialogBannerName> {openCableDialog.kabelgroep} </DialogBannerName>
         </DialogBanner>
         <DialogContent>
+          hier kom lengte
           <CableLengthInput cableLength={cableLength} />
         </DialogContent>
         <DialogFooter>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   Dialog,
   DialogContent,
@@ -9,6 +9,7 @@ import {
   ConfirmButton,
 } from "../../../Styles/DialogStyle";
 import { formatPrice } from "../../../Data/CableData";
+import { AssemblieContext } from "../../../Hooks/Context/AssemblieContext";
 
 export function getPrice(order) {
   return order.length * order.inkoopprijs;
@@ -18,34 +19,31 @@ function HaspelDialogContainer({
   openHaspelDialog,
   setOpenHaspelDialog,
   closeShowHaspelGrid,
-  updateCurrentHaspel,
-  selectedHaspel,
-  setOrders,
-  orders,
 }) {
   const isEditing = openHaspelDialog.index > -1;
+  const { UpdateAssemblieHaspel } = useContext(AssemblieContext);
 
   function close() {
     setOpenHaspelDialog();
   }
 
-  const order = {
-    assemblieItem: "haspel",
-    ...openHaspelDialog,
-  };
-
-  function editOrder() {
-    const newOrders = [...orders];
-    newOrders[openHaspelDialog.index] = order;
-    setOrders(newOrders);
-    close();
-  }
+  // function editOrder() {
+  //   const newOrders = [...orders];
+  //   newOrders[openHaspelDialog.index] = order;
+  //   setOrders(newOrders);
+  //   close();
+  // }
 
   function addToOrder() {
-    setOrders([...orders, order]);
+    // setOrders([...orders, order]);
     close();
-    updateCurrentHaspel(order);
-    selectedHaspel(openHaspelDialog.typenummer);
+    // updateCurrentHaspel(order);
+    UpdateAssemblieHaspel(
+      openHaspelDialog.artikelnummer,
+      openHaspelDialog.typenummer,
+      openHaspelDialog.type_haspel,
+      openHaspelDialog.inkoopprijs
+    );
     closeShowHaspelGrid();
   }
 
@@ -59,9 +57,8 @@ function HaspelDialogContainer({
         </DialogBanner>
         <DialogContent>hier kom info over haspel</DialogContent>
         <DialogFooter>
-          <ConfirmButton onClick={isEditing ? editOrder : addToOrder}>
-            {isEditing ? "wijzig haspel" : "selecteer de haspel"}{" "}
-            {formatPrice(getPrice(order))}
+          <ConfirmButton onClick={addToOrder}>
+            selecteer deze haspel
           </ConfirmButton>
           {/* <ConfirmButton onClick={addToOrder}>selecteer de kabel</ConfirmButton> */}
         </DialogFooter>

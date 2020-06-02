@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AssemblieContext } from "../../../Hooks/Context/AssemblieContext";
 import styled from "styled-components";
 import { connectors } from "../../../Data/ConnectorData";
 import {
@@ -11,23 +12,20 @@ import {
 import { ProductStyled } from "../../../Styles/ProductStyle";
 import { formatPrice } from "../../../Data/ConnectorData";
 
-function ConnectorGrid({ setOpenConnectorDialog, orders }) {
+function ConnectorGrid({ setOpenConnectorDialog }) {
+  const { selectedAssemblie } = useContext(AssemblieContext);
   let orderKabelgroep = null;
-  if (orders.length === 0) {
+  if (!selectedAssemblie) {
     orderKabelgroep = null;
   } else {
-    console.log("connkabelgroep ", orders[0].kabelgroep);
-    orderKabelgroep = orders[0].kabelgroep;
+    orderKabelgroep = selectedAssemblie.kabelgroep_kabel;
   }
-  console.log("orders:connector-kabelgroep ", orderKabelgroep);
 
   return (
     <ProductStyled>
-      {/* {orderKabelgroep} */}
       {Object.entries(connectors).map(([kabelgroep, connectors]) =>
         kabelgroep === orderKabelgroep ? (
           <>
-            {/* <h3> {kabelgroep} </h3> */}
             <ProductGrid>
               {connectors.map((connector) => (
                 <>

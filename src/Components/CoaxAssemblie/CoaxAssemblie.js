@@ -2,6 +2,7 @@ import React from "react";
 import { AssemblieContextProvider } from "../../Hooks/Context/AssemblieContext";
 import Cable from "./Cable/Cable";
 import Connector from "./Connector/Connector";
+import AssemblieDetails from "./Assemblie/AssemblieDetails";
 import ConnectorB from "./Connector/ConnectorB";
 import Haspel from "./Haspel/Haspel";
 import Afwerking from "./Afwerking/Afwerking";
@@ -15,9 +16,10 @@ function CoaxAssemblie() {
     <>
       <AssemblieContextProvider assemblies={assemblies}>
         <div>
-          <Order {...orders} />
+          {/* <Order {...orders} /> */}
+          <AssemblieDetails />
         </div>
-        <Cable {...orders} />
+        <Cable />
         <Connector {...orders} />
         <ConnectorB {...orders} />
         <Haspel {...orders} />

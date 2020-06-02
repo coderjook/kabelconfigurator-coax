@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import CableGrid from "./CableGrid";
 import { useToggleContent } from "../../../Hooks/useToggleContent";
+import { AssemblieContext } from "../../../Hooks/Context/AssemblieContext";
 import { ProductHeader, ProductStyled } from "../../../Styles/ProductStyle";
 import { CableDialog } from "./CableDialog";
 import { useOpenCableDialog } from "../../../Hooks/useOpenCableDialog";
@@ -13,26 +14,27 @@ import {
 } from "../../../Styles/ProductGrid";
 import { ChangeButton } from "../../../Styles/ButtonStyle";
 
-function Cable({ ...orders }) {
+function Cable() {
+  const { selectedAssemblie } = useContext(AssemblieContext);
   const toggleContent = useToggleContent();
   const openCableDialog = useOpenCableDialog();
   const [showCableGrid, setShowCableGrid] = useState(true);
-  const [currentCable, setCurrentCable] = useState({});
+  // const [currentCable, setCurrentCable] = useState({});
 
-  const updateCurrentCable = (order) => {
-    const newCurrentCable = order;
-    setCurrentCable(newCurrentCable);
-  };
+  // const updateCurrentCable = (order) => {
+  //   const newCurrentCable = order;
+  //   setCurrentCable(newCurrentCable);
+  // };
 
   return (
     <>
-      {currentCable && !showCableGrid ? (
+      {selectedAssemblie && !showCableGrid ? (
         <>
           {" "}
           <ProductHeader onClick={toggleContent.toggleShowContent}>
             <div>
-              Geselecteerde Kabel: {currentCable.typenummer} Lengte:{" "}
-              {currentCable.cableLength}
+              Geselecteerde Kabel: {selectedAssemblie.details_kabel} Lengte:{" "}
+              {selectedAssemblie.lengte_kabel}
             </div>
             <div></div>
             <div />
@@ -43,18 +45,23 @@ function Cable({ ...orders }) {
                 <div>
                   <Product
                     onClick={() => {
-                      openCableDialog.setOpenCableDialog(currentCable);
+                      openCableDialog.setOpenCableDialog(selectedAssemblie);
                     }}
                   >
                     {/* <ProductImg img={currentCable.img} /> */}
                     <ProductName>
-                      <div>{currentCable.typenummer}</div>
+                      <div>{selectedAssemblie.details_kabel}</div>
                     </ProductName>
                     <ProductDetails>
-                      <div>Artikelnummer: {currentCable.artikelnummer}</div>
-                      <div>typenummer: {currentCable.typenummer}</div>
-                      <div>merk: {currentCable.merk}</div>
-                      <div>lengte: {currentCable.cableLength}</div>
+                      <div>artikelnummer: {selectedAssemblie.artnr_kabel}</div>
+                      <div>prijs: {selectedAssemblie.prijs_kabel}</div>
+                      <div>lengte: {selectedAssemblie.lengte_kabel}</div>
+                      <div>
+                        geschikt voor haspel: {selectedAssemblie.haspelgeschikt}
+                      </div>
+                      <div>
+                        maximale lengte: {selectedAssemblie.opmaak_aantal}
+                      </div>
                     </ProductDetails>
                   </Product>
                 </div>
@@ -62,7 +69,7 @@ function Cable({ ...orders }) {
                   <Product>
                     <ChangeButton
                       onClick={() => {
-                        openCableDialog.setOpenCableDialog(currentCable);
+                        openCableDialog.setOpenCableDialog(selectedAssemblie);
                       }}
                     >
                       Wijzig lengte kabel
@@ -80,9 +87,9 @@ function Cable({ ...orders }) {
       ) : null}
       <CableDialog
         {...openCableDialog}
-        {...orders}
+        // {...orders}
         closeShowCableGrid={() => setShowCableGrid(false)}
-        updateCurrentCable={(order) => updateCurrentCable(order)}
+        // updateCurrentCable={(order) => updateCurrentCable(order)}
       />
 
       {showCableGrid ? (

@@ -1,11 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import { useToggleContent } from "../../../Hooks/useToggleContent";
-
-import { ProductHeader, ProductContent } from "../../../Styles/ProductStyle";
+import { AssemblieContext } from "../../../Hooks/Context/AssemblieContext";
+import {
+  ProductHeader,
+  ProductContent,
+  ProductStyled,
+} from "../../../Styles/ProductStyle";
 import HaspelGrid from "./HaspelGrid";
 import { HaspelDialog } from "./HaspelDialog";
 import { useOpenHaspelDialog } from "../../../Hooks/useOpenHaspelDialog";
+import { ConfirmButton } from "../../../Styles/DialogStyle";
+import { ChangeButton } from "../../../Styles/ButtonStyle";
+import {
+  Product,
+  ProductGrid3,
+  ProductImg,
+  ProductName,
+  ProductDetails,
+} from "../../../Styles/ProductGrid";
 
 const ProductContentCheck = styled.div`
   display: grid;
@@ -19,36 +32,72 @@ const ProductContentCheck = styled.div`
 `;
 
 function Haspel({ ...orders }) {
+  const { selectedAssemblie, UpdateAssemblieHaspel } = useContext(
+    AssemblieContext
+  );
   const openHaspel = useOpenHaspelDialog();
   const toggleContent = useToggleContent();
   const [showHaspelGrid, setShowHaspelGrid] = useState(false);
   const [opmaakHaspel, setOpmaakHaspel] = useState("gebonden");
-  const [haspelHeader, setHaspelHeader] = useState();
-  const [currentHaspel, setCurrentHaspel] = useState({});
-
-  const updateCurrentHaspel = (order) => {
-    const newCurrentHaspel = order;
-    setCurrentHaspel(newCurrentHaspel);
-  };
 
   const handleChange = (event) => {
     setOpmaakHaspel(event.target.value);
   };
 
-  // const toggleShowContent = () => {
-  //   setToggleContent(!toggleContent);
-  // };
+  function addToOrder() {
+    UpdateAssemblieHaspel(999999, "gebonden", "nvt", 0);
+  }
 
   return (
     <>
-      {haspelHeader ? (
+      {selectedAssemblie ? (
         <>
           {" "}
           <ProductHeader onClick={toggleContent.toggleShowContent}>
-            <div>Geselecteerde haspel: {haspelHeader}</div>
+            <div>Geselecteerde opmaak: {selectedAssemblie.details_haspel}</div>
             <div></div>
             <div />
           </ProductHeader>
+          {toggleContent.toggleContent ? (
+            <ProductStyled>
+              <ProductGrid3>
+                <div>
+                  <Product
+                  // onClick={() => {
+                  //   openConnectorDialog.setOpenConnectorDialog(
+                  //     selectedAssemblie
+                  //   );
+                  // }}
+                  >
+                    <ProductName>
+                      <div>{selectedAssemblie.details_haspel}</div>
+                    </ProductName>
+                    <ProductDetails>
+                      <div>Artikelnummer: {selectedAssemblie.artnr_haspel}</div>
+                      <div>type: {selectedAssemblie.type_haspel}</div>
+                    </ProductDetails>
+                  </Product>
+                </div>
+                <div>
+                  <Product>
+                    <ChangeButton
+                    // onClick={() => {
+                    //   openConnectorDialog.setOpenConnectorDialog(
+                    //     selectedAssemblie
+                    //   );
+                    // }}
+                    >
+                      Wijzig connector afwerking
+                    </ChangeButton>
+                    <ChangeButton onClick={() => setShowHaspelGrid(true)}>
+                      selecteer een andere connector
+                    </ChangeButton>
+                  </Product>
+                </div>
+                <div />
+              </ProductGrid3>
+            </ProductStyled>
+          ) : null}
         </>
       ) : (
         <ProductHeader active onClick={toggleContent.toggleShowContent}>
@@ -56,12 +105,11 @@ function Haspel({ ...orders }) {
           <div /> <div />
         </ProductHeader>
       )}
+
       <HaspelDialog
         {...openHaspel}
         {...orders}
         closeShowHaspelGrid={() => toggleContent.setToggleContent(false)}
-        updateCurrentHaspel={(order) => updateCurrentHaspel(order)}
-        selectedHaspel={(haspelName) => setHaspelHeader(haspelName)}
       />
       {toggleContent.toggleContent ? (
         <>
@@ -95,6 +143,11 @@ function Haspel({ ...orders }) {
               <p></p>
             </div>
           </ProductContentCheck>
+          {opmaakHaspel === "gebonden" ? (
+            <ConfirmButton onClick={addToOrder}>
+              selecteer de opmaak gebonden
+            </ConfirmButton>
+          ) : null}
           {opmaakHaspel === "haspel" ? <HaspelGrid {...openHaspel} /> : null}
         </>
       ) : null}

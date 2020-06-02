@@ -62,22 +62,37 @@ function ConnectorDialogContainer({
     tule: tuleOrder,
   };
 
-  function editOrder() {
-    const newOrders = [...orders];
-    newOrders[openConnectorDialog.index] = order;
-    setOrders(newOrders);
-    close();
-  }
+  // function editOrder() {
+  //   const newOrders = [...orders];
+  //   newOrders[openConnectorDialog.index] = order;
+  //   setOrders(newOrders);
+  //   close();
+  // }
 
   function addToOrder() {
-    setOrders([...orders, order]);
+    // setOrders([...orders, order]);
     // selectedConnector(openConnectorDialog.typenummer);
     if (connector === "connA") {
-      UpdateAssemblieConnA(openConnectorDialog.typenummer, tuleOrder);
-      updateCurrentConnectorA(order);
+      UpdateAssemblieConnA(
+        openConnectorDialog.artikelnummer,
+        openConnectorDialog.typenummer,
+        openConnectorDialog.connectortype,
+        openConnectorDialog.assemblage,
+        openConnectorDialog.inkoopprijs,
+        installationRadio.value,
+        tuleOrder
+      );
+      // updateCurrentConnectorA(order);
     } else {
-      UpdateAssemblieConnB(openConnectorDialog.typenummer, tuleOrder);
-      updateCurrentConnectorB(order);
+      UpdateAssemblieConnB(
+        openConnectorDialog.artikelnummer,
+        openConnectorDialog.typenummer,
+        openConnectorDialog.connectortype,
+        openConnectorDialog.assemblage,
+        openConnectorDialog.inkoopprijs,
+        installationRadio.value,
+        tuleOrder
+      );
     }
     closeShowConnectorGrid();
     close();
@@ -134,9 +149,10 @@ function ConnectorDialogContainer({
           ) : null}
         </DialogContent>
         <DialogFooter>
-          <ConfirmButton onClick={isEditing ? editOrder : addToOrder}>
-            {isEditing ? "update order" : "add to order"}{" "}
-            {formatPrice(getPrice(order))}
+          <ConfirmButton onClick={addToOrder}>
+            {/* {isEditing ? "update order" : "add to order"}{" "}
+            {formatPrice(getPrice(order))} */}
+            selecteer deze connector
           </ConfirmButton>
         </DialogFooter>
       </Dialog>
